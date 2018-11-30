@@ -100,11 +100,12 @@ func (h authHandler) isAuthed(sid string) bool {
 }
 
 func (h authHandler) newSession() string {
-	sid := uuid.NewV1().String()
+	sid,_ := uuid.NewV1()
+	sid2String := sid.String()
 	h.Lock()
-	h.sessions[sid] = nada
+	h.sessions[sid2String] = nada
 	h.Unlock()
-	return sid
+	return sid2String
 }
 
 func (h authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
